@@ -9,7 +9,7 @@ import JSConfetti from 'js-confetti'
 
 
 const Comment = ({comment,isReply}) => {
-  const {replies,deleteReply,updateReply,setLinksInText} = useAppContext();
+  const {replies,deleteReply,updateReply,setLinksInText,clickReaction,hasWarned} = useAppContext();
   const [score,setScore] = useState(comment.score);
   const [showAddComment,setShowAddComment] = useState(false)
   const [showEdit,setShowEdit] = useState(false)
@@ -17,6 +17,7 @@ const Comment = ({comment,isReply}) => {
   const [hasVoted,setHasVoted] = useState(false);
   const canvasRef = useRef();
   const mobileCanvasRef = useRef();
+
   // console.log(replies);
 
 
@@ -27,6 +28,9 @@ const Comment = ({comment,isReply}) => {
 
 
   const handleLike=(reaction)=>{
+    if(!clickReaction())return;
+   
+
     // if(hasVoted)return;
     if(reaction == "like"){
       const jsConfetti = new JSConfetti({canvas:canvasRef.current});
@@ -59,7 +63,7 @@ const Comment = ({comment,isReply}) => {
 
           <div className="rating-container">
             <div className="rating-div">
-              <button onClick={()=>handleLike("like")} className="rating-btn">
+              <button onClick={()=>handleLike("like")} className={hasWarned ? "rating-btn no-hover" : "rating-btn"}>
                 <img className="rating-icon" src="./images/icon-plus.svg" alt="" />
               </button>
             </div>
@@ -67,7 +71,7 @@ const Comment = ({comment,isReply}) => {
               <h5 className="score-h5">{score}</h5>
             </div>
             <div className="rating-div">
-            <button onClick={()=>handleLike("dislike")} className="rating-btn">
+            <button onClick={()=>handleLike("dislike")} className={hasWarned ? "rating-btn no-hover" : "rating-btn"}>
                 <img className="rating-icon" src="./images/icon-minus.svg" alt="" />
               </button>
             </div>
@@ -121,7 +125,7 @@ const Comment = ({comment,isReply}) => {
           <canvas ref={mobileCanvasRef} className="confetti-canvas"></canvas>
 
           <div className="rating-div">
-              <button onClick={()=>handleLike("like")} className="rating-btn">
+              <button onClick={()=>handleLike("like")} className={hasWarned ? "rating-btn no-hover" : "rating-btn"}>
                 <img className="rating-icon" src="./images/icon-plus.svg" alt="" />
               </button>
             </div>
@@ -129,7 +133,7 @@ const Comment = ({comment,isReply}) => {
               <h5 className="score-h5">{score}</h5>
             </div>
             <div className="rating-div">
-            <button onClick={()=>handleLike("dislike")} className="rating-btn">
+            <button onClick={()=>handleLike("dislike")} className={hasWarned ? "rating-btn no-hover" : "rating-btn"}>
                 <img className="rating-icon" src="./images/icon-minus.svg" alt="" />
               </button>
             </div>

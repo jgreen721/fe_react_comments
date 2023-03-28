@@ -20,6 +20,9 @@ export const AppProvider = ({children})=>{
     const [showDeleteModal,setShowDeleteModal] = useState(false)
     const [deleteId,setDeleteId] = useState(null)
 
+    const [counter,setCounter] = useState(8);
+    const [hasWarned,setHasWarned] = useState(false)
+
 
 
     useEffect(()=>{
@@ -93,6 +96,20 @@ export const AppProvider = ({children})=>{
     }
 
 
+    const clickReaction=()=>{
+        if(counter == 0){
+            if(!hasWarned){
+            setHasWarned(true)
+            alert("Sorry, but that's enough excitment out of you 😆🎉! ")
+            return false
+            }
+            return false
+          }
+          setCounter(counter-1)
+          return true;
+    }
+
+
 
     const setLinksInText=(comment)=>{
         let words = ["html","css","js","react","vue","angular","c","buffer"]
@@ -129,6 +146,8 @@ export const AppProvider = ({children})=>{
         replies,
         test,
         user,
+        hasWarned,
+        clickReaction,
         addReply,
         deleteReply,
         confirmDelete,

@@ -243,4 +243,27 @@
     border-radius: 8px;
     position: relative;
   }
+
+  .rating-btn:hover .rating-icon {
+    transform: scale(1);
+    animation: grow 1s;
+  }
+
+  @keyframes grow {
+    0% {
+      transform: scale(1);
+    }
+
+    50% {
+      transform: scale(2);
+    }
+
+    100% {
+      transform: scale(1);
+    }
+  }
+}
+
+.no-hover {
+  pointer-events: none;
 }
