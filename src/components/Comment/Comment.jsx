@@ -28,6 +28,9 @@ const Comment = ({comment,isReply}) => {
 
 
   const handleLike=(reaction)=>{
+    if(reaction == "dislike" && score == 0){alert("Awww, I think the OP has the point. How about showing some love! 😎😍")
+    return;
+  }
     if(!clickReaction())return;
    
 
