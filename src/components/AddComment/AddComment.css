@@ -18,16 +18,32 @@
   width: 4rem;
 }
 
+.reply-text-div {
+  width: 100%;
+  margin: 0 1rem;
+  position: relative;
+}
+
 .reply-input {
   resize: none;
   width: 100%;
-  margin: 0 1rem;
+  /* margin: 0 1rem; */
   padding: 1.2rem 2.4rem;
   font-family: var(--mainFont);
   font-size: 1.6rem;
   min-height: 10rem;
   border-radius: 8px;
   /* height: 100px; */
+}
+
+.char-counter {
+  position: absolute;
+  bottom: 1rem;
+  right: 2rem;
+}
+
+.char-counter-h5 {
+  font-size: 1rem;
 }
 
 .send-btn {
@@ -74,5 +90,11 @@
 
   .send-btn {
     padding: 0.8rem 2rem;
+  }
+
+  .char-counter {
+    position: absolute;
+    bottom: 1rem;
+    right: 2rem;
   }
 }

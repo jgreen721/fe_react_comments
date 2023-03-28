@@ -1,6 +1,6 @@
 {
   "name": "client",
-  "homepage":"https://jgreen721.github.io/fe_react_comments",
+  "homepage": "https://jgreen721.github.io/fe_react_comments",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -8,10 +8,11 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "deploy":"gh-pages -d dist"
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "gh-pages": "^5.0.0",
+    "js-confetti": "^0.11.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },

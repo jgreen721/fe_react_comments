@@ -1,15 +1,22 @@
-import React, {useState} from 'react'
+import React, {useState, useRef} from 'react'
 import { useAppContext } from '../../context/AppContext';
 import AddComment from '../AddComment/AddComment';
 import "./Comment.css"
+import JSConfetti from 'js-confetti'
+
+
+
+
 
 const Comment = ({comment,isReply}) => {
-  const {replies,deleteReply,updateReply} = useAppContext();
+  const {replies,deleteReply,updateReply,setLinksInText} = useAppContext();
   const [score,setScore] = useState(comment.score);
   const [showAddComment,setShowAddComment] = useState(false)
   const [showEdit,setShowEdit] = useState(false)
   const [newReply,setNewReply] = useState( `${comment.content}`)
-
+  const [hasVoted,setHasVoted] = useState(false);
+  const canvasRef = useRef();
+  const mobileCanvasRef = useRef();
   // console.log(replies);
 
 
@@ -18,13 +25,41 @@ const Comment = ({comment,isReply}) => {
     updateReply(newReply,comment.id)
   }
 
+
+  const handleLike=(reaction)=>{
+    // if(hasVoted)return;
+    if(reaction == "like"){
+      const jsConfetti = new JSConfetti({canvas:canvasRef.current});
+      jsConfetti.addConfetti({
+        confettiColors: [
+          'hsl(238, 40%, 52%);', 'hsl(358, 79%, 66%);', 'hsl(357, 100%, 86%)', '#ff85a1', 'rgb(31, 128, 238)', 'hsl(239, 57%, 85%)',
+        ],
+      })
+      const jsConfetti2 = new JSConfetti({canvas:mobileCanvasRef.current});
+      jsConfetti2.addConfetti({
+        confettiColors: [
+          'hsl(238, 40%, 52%);', 'hsl(358, 79%, 66%);', 'hsl(357, 100%, 86%)', '#ff85a1', 'rgb(31, 128, 238)', 'hsl(239, 57%, 85%)',
+        ],
+      })
+    setScore(score+1);
+    setHasVoted(true);
+    }
+    else{
+      setScore(score-1);
+      setHasVoted(true)
+    }
+  }
+
   return (
     <div className={isReply ? "reply-container" : "comment-container"}>
       <div className="comment-card">
-      {/* <div className="rating-col"> */}
+        <div className="comment-card-content">
+      <div className="rating-col">
+      <canvas ref={canvasRef} className="confetti-canvas"></canvas>
+
           <div className="rating-container">
             <div className="rating-div">
-              <button onClick={()=>setScore(score+1)} className="rating-btn">
+              <button onClick={()=>handleLike("like")} className="rating-btn">
                 <img className="rating-icon" src="./images/icon-plus.svg" alt="" />
               </button>
             </div>
@@ -32,12 +67,12 @@ const Comment = ({comment,isReply}) => {
               <h5 className="score-h5">{score}</h5>
             </div>
             <div className="rating-div">
-            <button onClick={()=>setScore(score-1)} className="rating-btn">
+            <button onClick={()=>handleLike("dislike")} className="rating-btn">
                 <img className="rating-icon" src="./images/icon-minus.svg" alt="" />
               </button>
             </div>
           </div>
-      {/* </div> */}
+      </div>
       <div className="comment-content-column">
         <div className="top-comment-row">
           <div className="comment-author-info-col">
@@ -76,15 +111,17 @@ const Comment = ({comment,isReply}) => {
             <textarea className="edit-input" value={newReply} id="editThread" onChange={(e)=>setNewReply(e.target.value)}></textarea>
             <button onClick={handleUpdate} className="send-btn right">Update</button>
           </div>:
-          <h5 className="comment-content-h5">{comment?.replyingTo && <span className="replyingTo">@{comment.replyingTo}</span>} {comment.content} </h5>
+          <h5 className="comment-content-h5">{comment?.replyingTo && <span className="replyingTo">@{comment.replyingTo}</span>} {setLinksInText(comment.content).map(word=>word.isLink ? <><a key={word.id} href="#"> {word.word} </a>{word?.symbol?.length && word.symbol.map(w=><span style={{marginLeft:"-.25rem"}}>{w}</span>)}</> : <span key={word.id}> {word.word} </span>)} </h5>
   }
         </div>
         {!showEdit &&
 
         <div className="mobile-row">
           <div className="mobile-rating-container">
+          <canvas ref={mobileCanvasRef} className="confetti-canvas"></canvas>
+
           <div className="rating-div">
-              <button onClick={()=>setScore(score+1)} className="rating-btn">
+              <button onClick={()=>handleLike("like")} className="rating-btn">
                 <img className="rating-icon" src="./images/icon-plus.svg" alt="" />
               </button>
             </div>
@@ -92,7 +129,7 @@ const Comment = ({comment,isReply}) => {
               <h5 className="score-h5">{score}</h5>
             </div>
             <div className="rating-div">
-            <button onClick={()=>setScore(score-1)} className="rating-btn">
+            <button onClick={()=>handleLike("dislike")} className="rating-btn">
                 <img className="rating-icon" src="./images/icon-minus.svg" alt="" />
               </button>
             </div>
@@ -117,6 +154,7 @@ const Comment = ({comment,isReply}) => {
               </button>}
         </div>
 }
+      </div>
       </div>
       </div>
       {replies.length > 0 && replies.filter(r=>r.commentId == comment.id).map(r=><Comment isReply={true} comment={r} key={r.id}/>)}

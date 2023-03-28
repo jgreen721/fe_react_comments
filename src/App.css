@@ -24,6 +24,11 @@ html {
   --secondFont: "Nunito", sans-serif;
 }
 
+a {
+  text-decoration: none;
+  font-weight: 600;
+}
+
 h1 {
   font-size: 4rem;
 }
@@ -42,6 +47,10 @@ h5 {
   text-decoration: underline;
 }
 
+.bold {
+  font-weight: 500;
+}
+
 .app {
   font-family: var(--mainFont);
   max-width: 144rem;
@@ -50,7 +59,7 @@ h5 {
   min-height: 100vh;
   position: relative;
   overflow-y: auto;
-  background: var(--lightgray);
+  background: var(--verylightgray);
 }
 
 .app-content-container {
@@ -59,7 +68,7 @@ h5 {
   width: 100%;
   left: 0;
   top: 0;
-  background: var(--lightgray);
+  background: var(--verylightgray);
   padding: 1rem;
 }
 

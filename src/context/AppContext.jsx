@@ -93,6 +93,37 @@ export const AppProvider = ({children})=>{
     }
 
 
+
+    const setLinksInText=(comment)=>{
+        let words = ["html","css","js","react","vue","angular","c","buffer"]
+        let counter = 0;
+        let hash={}
+        let commentArr=[]
+        comment.split(" ").forEach(word=>{
+            let cleanWord = word.match(/[^?.!,]/g)
+            let symbol = word.match(/[?,!.]/g);
+            console.log("SYMBOL",symbol)
+            cleanWord = cleanWord.join("")
+            console.log("Match",cleanWord);
+            if(words.indexOf(cleanWord.toLowerCase()) !== -1){
+                if(hash[cleanWord.toLowerCase()])return;
+                 
+                    commentArr.push({id:counter,isLink:true,word:cleanWord,symbol})
+                    hash[cleanWord.toLowerCase()] = true;
+            }
+            else{
+                commentArr.push({id:counter,isLink:false,word})
+
+            }
+            counter++;
+        })
+
+        return commentArr
+
+        
+    }
+
+
     const values={
         comments,
         replies,
@@ -104,7 +135,8 @@ export const AppProvider = ({children})=>{
         toggleEdit,
         setShowDeleteModal,
         updateReply,
-        showDeleteModal
+        showDeleteModal,
+        setLinksInText
     }
 
 
