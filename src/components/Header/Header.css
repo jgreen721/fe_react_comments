@@ -1,0 +1,17 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--secondFont);
+  padding: 1rem;
+}
+
+.h1-one {
+  text-transform: uppercase;
+  color: var(--reactblue);
+  letter-spacing: 0.5rem;
+}
+
+.h1-two {
+  font-weight: 200;
+}

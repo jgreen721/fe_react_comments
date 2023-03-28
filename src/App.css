@@ -1,0 +1,80 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200;800&family=Rubik:wght@400;500;700&display=swap");
+html {
+  font-size: 62.5%;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --modblue: hsl(238, 40%, 52%);
+  --softred: hsl(358, 79%, 66%);
+  --lightgrayblue: hsl(239, 57%, 85%);
+  --palered: hsl(357, 100%, 86%);
+  --darkblue: hsl(212, 24%, 26%);
+  --grayblue: hsl(211, 10%, 45%);
+  --lightgray: hsl(223, 19%, 93%);
+  --verylightgray: hsl(228, 33%, 97%);
+  --white: hsl(0, 0%, 100%);
+  --reactblue: rgb(31, 128, 238);
+  --mainFont: "Rubik", sans-serif;
+  --secondFont: "Nunito", sans-serif;
+}
+
+h1 {
+  font-size: 4rem;
+}
+
+h3 {
+  font-size: 2.4rem;
+  line-height: 2.8rem;
+}
+
+h5 {
+  font-size: 1.6rem;
+  line-height: 2.4rem;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+.app {
+  font-family: var(--mainFont);
+  max-width: 144rem;
+  margin: 0 auto;
+  /* border: 3px dotted blue; */
+  min-height: 100vh;
+  position: relative;
+  overflow-y: auto;
+  background: var(--lightgray);
+}
+
+.app-content-container {
+  /* border: 5px solid purple; */
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 0;
+  background: var(--lightgray);
+  padding: 1rem;
+}
+
+.comments-container {
+  width: 73rem;
+  /* border: 1px solid red; */
+  margin: 0 auto;
+}
+
+@media screen and (max-width: 650px) {
+  .comments-container {
+    width: 100%;
+  }
+
+  h5 {
+    font-size: 1.4rem;
+  }
+}
